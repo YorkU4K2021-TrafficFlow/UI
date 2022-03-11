@@ -1,0 +1,29 @@
+.layer2_form {
+    border: 1px solid black;
+    background-color: rgba(49,82,30,0.8);
+    margin-left: 10%;
+    width: 80%;
+    height: 100%;
+    position: absolute;
+}
+
+.text_inp {
+    padding: 20px;
+    margin: 10%;
+    margin-left: 15%;
+    margin-bottom: 0%;
+    width: 70%;
+    color: black;
+    font-size: 120%;
+    opacity: 1;
+}
+
+.layer2_b {
+    padding: 20px;
+    margin-left: 30%;
+    margin-top: 40px;
+    width: 40%;
+    background-color: #fde122;
+    color: black;
+    font-size: 120%;
+}

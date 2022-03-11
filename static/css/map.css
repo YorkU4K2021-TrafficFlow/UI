@@ -1,0 +1,26 @@
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-image: url("../img/traffic.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.map {
+    height:100vh;
+    width: 100%
+}
+
+.layer1_form {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.layer1_b {
+    width: 100%;
+    color: black;
+    padding: 20px;
+    background-color: #fde122;
+    font-size: 120%;
+}

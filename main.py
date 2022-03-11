@@ -1,40 +1,52 @@
-
-
-from flask import Flask, render_template
-
-import folium
-import numpy as np;
-from folium import plugins
-from folium.plugins import HeatMap
+from flask import Flask, render_template, session, request, redirect, url_for
+from Path import Paths
+import GlobalParams
 
 app = Flask(__name__)
+app.secret_key = "some_complex_key"
+FIRST = True
 
-lon, lat = -86.276, 30.935
+@app.route("/")
+def home():
+    global FIRST
 
-@app.route('/')
-def index():
-    #lon, lat = -86.276, 30.935 
-    #zoom_start = 5
-    start_coords = (43.8828, -79.4403)
-    folium_map = folium.Map(width = 1000, height = 750,location=start_coords, zoom_start=14)
-    
-    data = (
-    np.random.normal(size=(100, 3))/50 *
-    np.array([[0.1, 0.1, 0.1]]) +
-    np.array([[43.8828, -79.4403, 1]])
-    ).tolist()
-    
-    HeatMap(data).add_to(folium.FeatureGroup(name='Heat Map').add_to(folium_map))
-    folium.LayerControl().add_to(folium_map)
-    folium_map.save("templates/map.html",)
-    return render_template('main.html')
-    #return folium_map._repr_html_()
-    #return app.send_static_file("templates/main.html")
+    if FIRST:
+        session['layer2'] = True
+        FIRST = False
+    print("session['layer2']=",session['layer2'])
+    return render_template("layer1.html")
 
-@app.route('/show_map')
-def show():
-    return render_template('map.html')
+
+
+@app.route('/map')
+def map():
+    return render_template(GlobalParams.RESULTS)
+
+
+@app.route('/getResult', methods=['GET', 'POST'])
+def getResult():
+    global FIRST
+
+    try:
+        source = request.args['from']
+        dest = request.args['to']
+        paths = Paths(source, dest)
+        paths.plot()
+        session['layer2'] = False
+        FIRST = False if FIRST else FIRST
+    except Exception as e:
+        print("ERROR in getResult! " + str(e))
+
+    return redirect(url_for("home"))
+
+
+@app.route('/back_to_search', methods=['GET', 'POST'])
+def back_to_search():
+    session['layer2'] = True
+    return redirect(url_for("home"))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 

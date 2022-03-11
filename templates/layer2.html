@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}" title="cse4413" media="screen, print" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layer2.css') }}" title="cse4413" media="screen, print" />
+
+  <meta charset="UTF-8">
+  <title>Project Nomad</title>
+</head>
+<body>
+
+{% if session['layer2'] == True %}
+  <div>
+    <form class="layer2_form" action="{{ url_for('getResult')}}" method="get">
+      <input class="text_inp" id="from" type="text" placeholder="enter origin here..."
+             name="from" value="{{ session['from'] if session['from'] }}"/>
+
+      <input class="text_inp" id="to" type="text" placeholder="enter destination here..." style="margin-bottom: 10%;"
+             name="to" value="{{ session['to'] if session['to'] }}"/>
+
+      <input class="layer2_b" type="submit" name="getResults" value="Search"/>
+    </form>
+  </div>
+{% else %}
+{% block layer1%}{% endblock %}
+{% endif %}
+
+</body>
+</html>

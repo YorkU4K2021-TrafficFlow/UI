@@ -1,0 +1,11 @@
+{% extends "layer2.html" %}
+
+{% block layer1%}
+
+<iframe class="map" src="{{ url_for('map') }}" style="height:100vh; width: 100%"></iframe>
+
+<form class="layer1_form" action="{{ url_for('back_to_search')}}" method="get">
+    <input class="layer1_b" type="Submit" value="Stop" name="getResults" />
+</form>
+
+{% endblock %}
