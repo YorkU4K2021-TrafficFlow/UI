@@ -1,4 +1,53 @@
+from geopy.geocoders import Nominatim
 import pandas as pd
+import re
+
+# used in address validation
+geoloc = Nominatim(user_agent='Rec')
+
+# regex token identifying a valid postal code
+POSTAL_REG = '/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i'
+
+# regex token identifying a valid lat or lon
+LATLON_REG = '^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$i'
+
+def is_postal(inp: str):
+    return re.search(POSTAL_REG, inp)
+
+# returns true if input is a street address
+def is_address(inp: str):
+    location = geoloc.geocode(address)
+    if (location != None):
+        return True
+    else:
+        return False
+
+# returns true if input is lattitude or longitude
+def is_latlon(inp: str):
+    
+    return True
+
+# utility function creating a list with 1 elements for src, dst respectively
+# each element represents a boolean corresponding to whether that input is valid
+def which_valid(src: str, dst: str):
+    res = [False,False]
+    if (is_postal(src) or is_address(src) or is_latlon(src)):
+        res[-1]=True
+    if (is_postal(dst) or is_address(dst) or is_latlon(dst)):
+        res[0]=True
+    return res
+
+# utility function for boolean checking of inputs
+def is_valid(src: str, dst: str):
+    res = which_valid(src, dst)
+    # input is only valid when they both are
+    if (res[-1] and res[1]):
+        return True
+    else:
+        return False
+
+
+
 
 # Takes raw csv and cleans it leaving data unchanged
 # file - the string path representation of the csv to be looked at
@@ -67,3 +116,6 @@ def sum_nor(data:DataFrame) -> DataFrame:
         res[col] /= res[col].sum()
 
     return(res)
+
+
+
