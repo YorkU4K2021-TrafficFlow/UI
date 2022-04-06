@@ -51,7 +51,7 @@ def is_valid(src: str, dst: str):
 
 # Takes raw csv and cleans it leaving data unchanged
 # file - the string path representation of the csv to be looked at
-def clean_csv(file: str) -> DataFrame:
+def clean_csv(file: str):
     # read in the input CSV
     # TODO: remove hardcoded path, figure out where to look and tell py to look there - confer with team
     df = pd.read_csv(file)
@@ -76,7 +76,7 @@ def clean_csv(file: str) -> DataFrame:
 # ref - the reference point to gauge what the output should be by
 # inc - whether we should include values equal to ref as 1 or 0
 # outputs the finished normalized dataframe 
-def bin_nor(data: DataFrame, ref: float, inc: bool) -> DataFrame:
+def bin_nor(data: pd.DataFrame, ref: float, inc: bool):
     # start with a new version for the result
     res = data.copy()
     # go through all cells
@@ -101,14 +101,14 @@ def bin_nor(data: DataFrame, ref: float, inc: bool) -> DataFrame:
 # min max style normalization
 # data - the data to be normalized
 # outputs the finished normalized dataframe
-def minmax_nor(data: DataFrame) -> DataFrame:
+def minmax_nor(data: pd.DataFrame):
     # use the max and min from the data to create result
     res = (data-data.min())/(data.max()-data.min())
     return(res)
     
 
 # normalize each column based on the sum of its values
-def sum_nor(data:DataFrame) -> DataFrame:
+def sum_nor(data: pd.DataFrame):
     res = data.copy()
     # for all columns
     for col in res.columns:
