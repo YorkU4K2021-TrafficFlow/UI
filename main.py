@@ -53,7 +53,7 @@ def getResult():
     try:
         source = request.args['from']
         dest = request.args['to']
-        if(ds.valid_input(source,dest)):
+        if(ds.is_valid(source,dest)):
             paths = Paths(source, dest)
             paths.plot()
             session['layer2'] = False

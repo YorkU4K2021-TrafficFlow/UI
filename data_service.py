@@ -32,16 +32,16 @@ def is_latlon(inp: str):
 def which_valid(src: str, dst: str):
     res = [False,False]
     if (is_postal(src) or is_address(src) or is_latlon(src)):
-        res[-1]=True
-    if (is_postal(dst) or is_address(dst) or is_latlon(dst)):
         res[0]=True
+    if (is_postal(dst) or is_address(dst) or is_latlon(dst)):
+        res[1]=True
     return res
 
 # utility function for boolean checking of inputs
 def is_valid(src: str, dst: str):
     res = which_valid(src, dst)
     # input is only valid when they both are
-    if (res[-1] and res[1]):
+    if (res[0] and res[1]):
         return True
     else:
         return False
