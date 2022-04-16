@@ -2,10 +2,102 @@
 
 {% block layer1%}
 
-<iframe class="map" src="{{ url_for('map') }}" style="height:100vh; width: 100%"></iframe>
+<style>
+#myMap {
+    width: 70%;
+    float: right;
+    height: 100%;
+}
 
-<form class="layer1_form" action="{{ url_for('back_to_search')}}" method="get">
-    <input class="layer1_b" type="Submit" value="Stop" name="getResults" />
-</form>
+#sideBar {
+    width: 28%;
+    float: left;
+    border: 10px solid darkorange;
+    height: 100%;
+}
+
+.single_text {
+    width: 60%;
+    border: 2px solid darkorange;
+    margin: 5% 20%;
+}
+
+html,body { height:100%; }
+
+.single_b {
+    width: 30%;
+    color: black;
+    padding: 20px;
+    margin: 10% 35%;
+    background-color: darkorange;
+    font-size: 120%;
+}
+
+.logo {
+    width: 90%;
+}
+
+
+.clock {
+	Display:inline-block;
+    width: 15%;
+    margin-left:25%;
+    vertical-align: middle;
+}
+
+.time_box{
+	Display:inline-block;
+    width: 10%;
+    border: 2px solid darkorange;
+}
+
+.time_block{
+	Display:inline-block;
+    margin-left: 5%;
+    vertical-align: middle;
+	
+    width: 30%;
+}
+
+.time_input{
+	Display:inline-block;
+	vertical-align:middle;
+	width: 100%;
+}
+
+@media handheld, only screen and (max-width: 500px), only screen and (max-device-width: 500px) {
+    #myMap, #form {
+        width: auto;
+        float: none;
+    }
+}
+
+</style>
+
+<div id="myMap"><iframe class="map" src="{{ url_for('map') }}"></iframe></div>
+
+<div id="sideBar"> 
+	<img class="logo" src = "/static/img/4KLOGO.png");>
+	<form class="single_form" action="{{ url_for('getResult')}}" method="get">
+		
+      		<input  class="single_text" id="from" type="text" placeholder="enter origin here..."
+		name="from" value="{{ session['from'] if session['from'] }}"/>
+
+		<input class="single_text" id="to" type="text" placeholder="enter destination here..." style="margin-bottom: 10%;"
+		name="to" value="{{ session['to'] if session['to'] }}"/>
+		<div class = "time_input">
+			<img class="clock" src = "/static/img/clock.png")>
+			<div class = "time_block"> 
+				Departure TIme<br>
+				<input class = "time_box" id = "hour">
+				:
+				<input class = "time_box" id = "minutes">
+			</div>
+		</div>
+		<input class="single_b" type="submit" name="getResults" value="Search"/>
+	</form>
+	
+</div>
+
 
 {% endblock %}
