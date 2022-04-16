@@ -11,17 +11,8 @@
 </head>
 <body>
 
-{% if session['layer2'] == True %}
+{% if False %}
   <div>
-    <form class="layer2_form" action="{{ url_for('getResult')}}" method="get">
-      <input class="text_inp" id="from" type="text" placeholder="enter origin here..."
-             name="from" value="{{ session['from'] if session['from'] }}"/>
-
-      <input class="text_inp" id="to" type="text" placeholder="enter destination here..." style="margin-bottom: 10%;"
-             name="to" value="{{ session['to'] if session['to'] }}"/>
-
-      <input class="layer2_b" type="submit" name="getResults" value="Search"/>
-    </form>
   </div>
 {% else %}
 {% block layer1%}{% endblock %}

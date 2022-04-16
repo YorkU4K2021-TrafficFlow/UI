@@ -4,6 +4,7 @@ import GlobalParams
 import data_service as ds
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.secret_key = "some_complex_key"
 FIRST = True
 
